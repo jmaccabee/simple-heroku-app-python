@@ -15,3 +15,13 @@ At that point, I could install the necessary Python requirements.
 
 You'll also need to install the Heroku CLI:
 > brew install heroku/brew/heroku
+
+
+## Heroku config settings
+A few Heroku environment variables must be set to run this app:
+
+*You shouldn't expose your secret key*
+> heroku config:set SECRET_KEY='<some-secret-key>'
+
+*And you'll need to point Heroku to your production settings file*
+> heroku config:set DJANGO_SETTINGS_MODULE=simple_heroku_app.settings.production
