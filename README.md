@@ -21,7 +21,15 @@ You'll also need to install the Heroku CLI:
 A few Heroku environment variables must be set to run this app:
 
 *You shouldn't expose your secret key*
-> heroku config:set SECRET_KEY='<some-secret-key>'
+> heroku config:set SECRET_KEY='some-secret-key'
 
 *And you'll need to point Heroku to your production settings file*
 > heroku config:set DJANGO_SETTINGS_MODULE=simple_heroku_app.settings.production
+
+**Optional settings**
+
+You can also point your local directory at your heroku app by running the following: 
+
+> git remote add heroku git@heroku.com:your-project-name.git
+
+This will eliminate the need to include the app name in git commands.
