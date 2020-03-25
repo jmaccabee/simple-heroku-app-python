@@ -4,7 +4,7 @@ A simple template to bootstrap a new Heroku project
 
 ## Setup instructions
 #### Dependencies
-Using Mac OS X:
+Using Mac OS X (10.15.3):
 
 Initially, I ran into an issue where C couldn't compile psycopg2 (a dependency for django-heroku). To resolve the issue I ran the following commands:
 > xcode-select --install
