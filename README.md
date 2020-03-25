@@ -1,5 +1,5 @@
 # simple-heroku-app-python
-A simple template to bootstrap a new Heroku project
+A simple template to bootstrap a new Django project running on Heroku
 
 
 ## Setup instructions
