@@ -84,10 +84,11 @@ WSGI_APPLICATION = 'simple_heroku_app.wsgi.application'
 import dj_database_url  # noqa
 
 DATABASES = {
-    'default': dj_database_url.config(
+    'default': dj_database_url.parse(
+        os.environ['DATABASE_URL'],
         conn_max_age=600,
         ssl_require=True
-    )
+    ),
 }
 
 
