@@ -33,3 +33,13 @@ You can also point your local directory at your heroku app by running the follow
 > git remote add heroku git@heroku.com:your-project-name.git
 
 This will eliminate the need to include the app name in git commands.
+
+
+## Development
+1) Create the database
+
+2) Install the pre-commit hooks:
+
+> pre-commit install
+
+You're ready to go!
