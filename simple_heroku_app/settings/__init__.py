@@ -1,1 +1,1 @@
-from settings.django import *  # noqa
+from .django import *  # noqa
