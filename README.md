@@ -28,7 +28,7 @@ A few Heroku environment variables must be set to run this app:
 
 **Optional settings**
 
-You can also point your local directory at your heroku app by running the following: 
+You can also point your local directory at your heroku app by running the following:
 
 > git remote add heroku git@heroku.com:your-project-name.git
 
