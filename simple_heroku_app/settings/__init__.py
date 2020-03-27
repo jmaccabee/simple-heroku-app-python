@@ -85,9 +85,7 @@ import dj_database_url  # noqa
 
 DATABASES = {
     'default': dj_database_url.parse(
-        os.environ['DATABASE_URL'],
-        conn_max_age=600,
-        ssl_require=True,
+        os.environ['DATABASE_URL']
     ),
 }
 
@@ -132,7 +130,3 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 # uncomment if you'd like gzip functionality enabled in your static file serving
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-# Include Django-Heroku at the end of the file
-import django_heroku  # noqa
-django_heroku.settings(locals())

@@ -1,2 +1,6 @@
 local_shell:
-	@source .env && python manage.py shell
+	@export $$(cat .env | xargs); python manage.py shell
+
+
+migrate:
+	@export $$(cat .env | xargs); python manage.py migrate
