@@ -10,10 +10,21 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
+###################################################
+# DJANGO SETTINGS
+###################################################
+from dotenv import load_dotenv
 import os
+from pathlib import Path
+
+
+# load environment from .env file
+env_path = Path('.') / '.env'
+load_dotenv(dotenv_path=env_path)
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '..'))
 
 
 # Quick-start development settings - unsuitable for production
@@ -42,6 +53,7 @@ INSTALLED_APPS = [
     # vendor apps
 
     # my apps
+    'polls.apps.PollsConfig',
 
 ]
 
@@ -85,7 +97,7 @@ import dj_database_url  # noqa
 
 DATABASES = {
     'default': dj_database_url.parse(
-        os.environ['DATABASE_URL']
+        os.environ['DATABASE_URL'],
     ),
 }
 
