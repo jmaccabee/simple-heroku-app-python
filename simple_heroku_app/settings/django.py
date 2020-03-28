@@ -39,7 +39,7 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 PRODUCTION = os.environ["PRODUCTION"]
 DEBUG = not PRODUCTION
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ["ALLOWED_HOSTS"].split(",")
 
 
 # Application definition
