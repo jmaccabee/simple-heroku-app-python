@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # vendor apps
     # my apps
+    "base.apps.BaseConfig",
     "polls.apps.PollsConfig",
 ]
 

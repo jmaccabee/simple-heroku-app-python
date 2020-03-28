@@ -3,7 +3,7 @@ import datetime
 from django.db import models
 from django.utils import timezone
 
-from _base.models import BaseAbstractModel
+from base.models import BaseAbstractModel
 
 
 class Question(BaseAbstractModel):
