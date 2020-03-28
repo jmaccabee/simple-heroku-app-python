@@ -3,10 +3,27 @@
 {% block content %}
 
 <h1>{{ question.question_text }}</h1>
-<ul>
-{% for choice in question.choise_set.all %}
-  <li>{{ choice.choice_text }}</li>
+{% if error_message %}
+  <p>
+    <strong>{{ error_message }}</strong>
+  </p>
+{% endif %}
+
+<form action="{% url 'polls:vote' question.id %}" method="post">
+{# since we're creating a POST form targeted at an internal URL, #}
+{# we should use a CSRF token template tag to validate the POST #}
+{% csrf_token %}
+
+{% for choice in question.choice_set.all %}
+  {# display a radio button for each choice #}
+  {# the value of each button should be the associated choice's id #}
+  {# the name of each button should be "choice" #}
+  {# #}
+  {# forloop.counter indicates how many times the for tag has gone through its loop #}
+  <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
 {% endfor %}
-</ul>
+<input type="submit" value="Vote">
+</form>
 
 {% endblock %}
