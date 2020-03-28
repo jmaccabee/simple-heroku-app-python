@@ -1,33 +1,78 @@
 """
 Views should return either an HttpResponse or an Exception.
 The render shortcut will return an HttpResponse object by default.
+
+Generic views abstract common patterns:
+1) Get data from the db according to a URL parameter
+2) Load a template
+3) return the rendered template
+
+Generic views also enable automatic context generation
+based on the name of the model you pass.
+
+For a DetailView, `<model_name>` is automatically included in
+our templates' context.
+
+For a ListView, `<model_name>_list` is included in our context.
 """
 from django.http import HttpResponseRedirect
 from django.db.models import F
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
+from django.views import generic
 
 from .models import Choice, Question
 
 
-def index(request):
-    latest_question_list = Question.objects.order_by("-pub_date")[:5]
-    context = {"latest_question_list": latest_question_list}
-    # render takes the request object as its first argument,
-    # a template name as it's second argument,
-    # and a dictionary as its optional third argument (context)
-    # it returns an HttpResponse object of the template rendered with the context
-    return render(request, "polls/index.html", context)
+class IndexView(generic.ListView):
+    """
+    A ListView represents a page with a list of objects.
+
+    Requires a template and a context to populate
+    the template with.
+
+    self.object_list contains the list of objects that the view is operating on.
+    """
+
+    # if our HTML was <model_name>_list.html (i.e., question_list.html),
+    # we could skip this next line altogether
+    template_name = "polls/index.html"
+    # since our previous view defined our object list context as
+    # "latest_question_list", we must explicitly pass a context_object_name.
+    # had we used "question_list" instead, this wouldn't be necessary.
+    context_object_name = "latest_question_list"
+
+    def get_queryset(self):
+        """
+        Return the last five published questions
+        """
+        return Question.objects.order_by("-pub_date")[:5]
 
 
-def detail(request, question_id):
-    # get_object_or_404 takes a Django model as its first argument and an arbitrary number of
-    # keyword arguments, which it passes to the get() function of the model's manager
-    # and raises Http404 if the object doesn't exist.
-    #
-    # there's also a get_list_or_404() function, except using filter() instead of get().
-    question = get_object_or_404(Question, pk=question_id)
-    return render(request, "polls/detail.html", {"question": question})
+class DetailView(generic.DetailView):
+    """
+    A DetailView requires a model and a template to display.
+
+    self.object contains the object the view is operating on.
+    """
+
+    model = Question
+    # if our HTML was <model_name>_detail.html (i.e., question_detail.html),
+    # we could skip this next line altogether by default
+    template_name = "polls/detail.html"
+
+
+class ResultsView(generic.DetailView):
+    """
+    A DetailView requires a model and a template to display.
+
+    self.object contains the object the view is operating on.
+    """
+
+    model = Question
+    # if our HTML was <model_name>_detail.html (i.e., question_detail.html),
+    # we could skip this next line altogether by default
+    template_name = "polls/results.html"
 
 
 def vote(request, question_id):
@@ -60,8 +105,3 @@ def vote(request, question_id):
     #
     # HttpResponseRedirect takes 1 parameter (a URL to which the user will be redirected)
     return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
-
-
-def results(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    return render(request, "polls/results.html", {"question": question})
