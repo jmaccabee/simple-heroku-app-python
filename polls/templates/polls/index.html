@@ -6,7 +6,8 @@
     {% for question in latest_question_list %}
       <li>
           {# use the url template tag to remove reliance on specific URL paths #}
-          <a href="{% url 'detail' question.id %}">{{ question.question_text }}</a>
+          {# and namespace your URLs by prefixing with `app_name:url-name` #}
+          <a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a>
       </li>
     {% endfor %}
     </ul>

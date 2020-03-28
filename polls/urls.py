@@ -2,6 +2,9 @@ from django.urls import path
 
 from . import views
 
+
+# enable URL namespacing in URL template tags by setting an app_name.
+app_name = "polls"
 urlpatterns = [
     # pass a name argument to enable using URL template tags
     path("", views.index, name="index"),
