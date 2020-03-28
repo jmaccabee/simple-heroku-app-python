@@ -1,8 +1,8 @@
 """
 Views should return either an HttpResponse or an Exception
 """
-from django.http import Http404, HttpResponse
-from django.shortcuts import render
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render
 
 from .models import Question
 
@@ -18,10 +18,12 @@ def index(request):
 
 
 def detail(request, question_id):
-    try:
-        question = Question.objects.get(pk=question_id)
-    except Question.DoesNotExist:
-        raise Http404("Question does not exist.")
+    # get_object_or_404 takes a Django model as its first argument and an arbitrary number of
+    # keyword arguments, which it passes to the get() function of the model's manager
+    # and raises Http404 if the object doesn't exist.
+    #
+    # there's also a get_list_or_404() function, except using filter() instead of get().
+    question = get_object_or_404(Question, pk=question_id)
     return render(request, "polls/detail.html", {"question": question})
 
 
