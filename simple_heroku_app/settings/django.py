@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # vendor apps
+    "django_extensions",
     # my apps
     "base.apps.BaseConfig",
     "polls.apps.PollsConfig",
