@@ -43,3 +43,7 @@ This will eliminate the need to include the app name in git commands.
 > pre-commit install
 
 You're ready to go!
+
+3) Create an admin superuser
+
+> python manage.py createsuperuser
