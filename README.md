@@ -40,8 +40,6 @@ This will eliminate the need to include the app name in git commands.
 
 > ALTER ROLE myuser CREATEDB; -- create database permissions
 
-> ALTER USER myuser SUPERUSER; -- grant superuser permissions
-
 2) Install the pre-commit hooks:
 
 > pre-commit install
