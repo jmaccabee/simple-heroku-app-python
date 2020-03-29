@@ -36,7 +36,11 @@ This will eliminate the need to include the app name in git commands.
 
 
 ## Development
-1) Create the database
+1) Create the database and grant all privileges to the user you create it with
+
+> ALTER ROLE myuser CREATEDB; -- create database permissions
+
+> ALTER USER myuser SUPERUSER; -- grant superuser permissions
 
 2) Install the pre-commit hooks:
 
