@@ -1,4 +1,6 @@
 #!/bin/bash
+coverage:
+	@coverage run --source='.' manage.py test . && coverage report
 
 run:
 	@python manage.py runserver

@@ -19,6 +19,7 @@ from django.http import HttpResponseRedirect
 from django.db.models import F
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
+from django.utils import timezone
 from django.views import generic
 
 from .models import Choice, Question
@@ -46,7 +47,11 @@ class IndexView(generic.ListView):
         """
         Return the last five published questions
         """
-        return Question.objects.order_by("-pub_date")[:5]
+        return Question.objects.filter(
+            # return a queryset where `pub_date` is
+            # less than or equal to (lte) now in the current tz
+            pub_date__lte=timezone.now()
+        ).order_by("-pub_date")[:5]
 
 
 class DetailView(generic.DetailView):
@@ -60,6 +65,12 @@ class DetailView(generic.DetailView):
     # if our HTML was <model_name>_detail.html (i.e., question_detail.html),
     # we could skip this next line altogether by default
     template_name = "polls/detail.html"
+
+    def get_queryset(self):
+        """
+        Exclude any questions that aren't published yet.
+        """
+        return Question.objects.filter(pub_date__lte=timezone.now())
 
 
 class ResultsView(generic.DetailView):
@@ -104,4 +115,6 @@ def vote(request, question_id):
     # user hits the Back button.
     #
     # HttpResponseRedirect takes 1 parameter (a URL to which the user will be redirected)
+    #
+    # # use reverse('<app>:<view>') to dynamically lookup the relevant endpoint
     return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
